@@ -1,0 +1,60 @@
+git init 
+ - git local repo 생성 및 초기화 .git파일 생성
+
+git remote add origin <git 주소> 
+ - 원격 repo 등록
+
+git add .
+ - workspace에서 수정된 내역모두를 index 영역으로 추가해줌
+
+git commit 
+ - local repo 에 add 된 내역을 저장
+
+git push 
+ - local repo에 commit된 내역을 원격 repo에 저장
+
+git reset --hard/mixed/soft 옵션들이 존재함.
+ - 코드 수정내역 되돌림, commit한 내역들을 그냥 삭제함.
+
+git revert <commit ID 입력>
+ - 코드 수정내역 되돌림, 기존commit은 그대로 놔두고 revert commit을 추가하여 관리한다.
+	reset을 사용하면 로컬repo와 원격repo 사이에 문제가 발생하여 push 진행시 문제발생.
+	강제로 push를 진행할 수 있지만 절대 권장하지 않음 -> reset 대신 revert 사용할 것!
+
+branch 소스코드내의 분기점을 잡고 각각 다른개발을 진행할 수 있게 해줌 동일한 버전의 소스를 나눠갖고 각각개발 생산성 증대
+ 기본적으로 master라는 branch에서 작업이 이루어지게 생성됨
+ 
+git checkout <branch 이름> 
+ - 해당 branch로 이동해줌
+
+git checkout -b <생성할 branch이름>
+ - branch를 생성하면서 바로 그 branch로 이동
+
+생성한 branch로 작업을 진행하고 몇개의 commit을 진행하고 git log 명령어를 실행하면 각각의 branch 별로 진행상황을 확인 가능
+
+merge 명령어를 이용해 두개의 branch를 합칠 수 있다.
+
+git merge<합칠 branch이름>
+ - merge를 실행하면 현재위치하는 branch에다가 합쳐집.
+master branch에 다른 branch를 합치려면 master branch에서 merge를 진행해야함.
+
+git checkout master
+git merge <합칠 branch이름>
+
+서비스에 문제 발생 시 master branch에는 온전하게 동작하는 코드를 올려놓고, 문제 fix하기위한 branch인 fix1,fix2 생성 후, 해당 branch로 이동 후, 문제가 발생한 code1파일에서 문제 수정 후 add,commit 수행함. 그후 fix2 branch로 이동한 후 code1파일을 수정하고 add,commit 수행함. 
+
+git checkout master
+git merge fix1
+실행
+git merge fix2
+실행
+
+같은파일에 같은 부분을 수정한 branch를 merge하게되면 confilct가 발생함. 이러한 부분은 직접 수정을 해주어야 함.
+
+작업을 완료한 branch는 그냥 놔두면 나중에 혹시나 백업의 용도로 사용이 가능하다.
+
+git branch -d <삭제할 branch 이름> 
+ - branch 삭제 
+
+git rebase -i HEAD~3
+ - commit내역 수정 및 삭제가능
